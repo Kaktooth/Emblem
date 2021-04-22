@@ -59,6 +59,31 @@ namespace Emblem
         {
             Y++;
         }
+        public int GetX()
+        {
+            return X;
+        }
+        public int GetY()
+        {
+            return Y;
+        }
+        public int GetSize()
+        {
+            return Size;
+        }
+        public void SetLocation(int X, int Y)
+        {
+            this.X = X;
+            this.Y = Y;
+        }
+        public bool CheckIfZero()
+        {
+            if (Size <= 0)
+            {
+                return true;
+            }
+            else { return false; }
+        }
         public void IncreaseSize()
         {
             Size++;

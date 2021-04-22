@@ -29,7 +29,8 @@ namespace Emblem
             CEmblem emblem = new CEmblem(rand, rand2, rand3, "Emblem" + count, Color.Black);
             emblem.Show();
             emblem.Draw(pictureBox2);
-            comboBox1.Items.Add(emblem);  
+            comboBox1.Items.Add(emblem);
+            comboBox1.SelectedItem = emblem;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -112,13 +113,23 @@ namespace Emblem
         {
             if (comboBox1.SelectedItem != null)
             {
+                
                 CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
-                if (emblem.currentColor == Color.White) { return; }
-                emblem.Hide();
-                emblem.Draw(pictureBox2);
-                emblem.ReduceSize();
-                emblem.Show();
-                emblem.Draw(pictureBox2);
+                if (emblem.CheckIfZero())
+                {
+                    button5.Enabled = false;
+                }
+                else
+                {
+                    button5.Enabled = true;
+                }
+                    if (emblem.currentColor == Color.White) { return; }
+                    emblem.Hide();
+                    emblem.Draw(pictureBox2);
+                    emblem.ReduceSize();
+                    emblem.Show();
+                    emblem.Draw(pictureBox2);
+                
             }
         }
 
@@ -127,10 +138,74 @@ namespace Emblem
             if (comboBox1.SelectedItem != null)
             {
                 CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
+                if (emblem.CheckIfZero())
+                {
+                    button5.Enabled = false;
+                }
+                else
+                {
+                    button5.Enabled = true;
+                }
                 if (emblem.currentColor == Color.White) { return; }
                 emblem.Hide();
                 emblem.Draw(pictureBox2);
                 emblem.IncreaseSize();
+                emblem.Show();
+                emblem.Draw(pictureBox2);
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+                CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
+                if (emblem.currentColor == Color.White) { return; }
+                emblem.Hide();
+                emblem.Draw(pictureBox2);
+                emblem.SetLocation(emblem.GetX(), pictureBox2.Height - emblem.GetSize());
+                emblem.Show();
+                emblem.Draw(pictureBox2);
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+                CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
+                if (emblem.currentColor == Color.White) { return; }
+                emblem.Hide();
+                emblem.Draw(pictureBox2);
+                emblem.SetLocation(emblem.GetX(), 0);
+                emblem.Show();
+                emblem.Draw(pictureBox2);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+                CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
+                if (emblem.currentColor == Color.White) { return; }
+                emblem.Hide();
+                emblem.Draw(pictureBox2);
+                emblem.SetLocation(0, emblem.GetY());
+                emblem.Show();
+                emblem.Draw(pictureBox2);
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+                CEmblem emblem = (CEmblem)comboBox1.SelectedItem;
+                if (emblem.currentColor == Color.White) { return; }
+                emblem.Hide();
+                emblem.Draw(pictureBox2);
+                emblem.SetLocation(pictureBox2.Width-emblem.GetSize(), emblem.GetY());
                 emblem.Show();
                 emblem.Draw(pictureBox2);
             }
