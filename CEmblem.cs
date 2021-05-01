@@ -14,8 +14,10 @@ namespace Emblem
         public Color currentColor { get; set; }
         string name { get; set; }
         int Size { get; set; }
+        public bool animate = false;
         int X { get; set; }
         int Y { get; set; }
+        public int angle { get; set; }
         Pen p = new Pen(Color.Red,1f);
         public CEmblem() { }
         public CEmblem(int x, int y, int size, string name, Color color)
@@ -96,7 +98,7 @@ namespace Emblem
         {
             return name;
         }
-        public void Draw(PictureBox pictureBox)
+        public void Draw2(PictureBox pictureBox)
         {
             p.Color = currentColor;
             using (var g = Graphics.FromImage(pictureBox.Image))
@@ -122,6 +124,56 @@ namespace Emblem
                 g.Transform = m;
                 g.DrawRectangle(p, r);
                 g.ResetTransform();
+            }
+        }
+        public void Draw(PictureBox pictureBox, float angle)
+        {
+            p.Color = currentColor;
+            using (var g = Graphics.FromImage(pictureBox.Image))
+            {
+                g.DrawEllipse(p, X, Y, Size, Size);
+                double d = Size;
+                float side = (float)(d * (Math.Sqrt(2f) / 2f));
+               
+                Rectangle r = new Rectangle(X + Size / 7, Y + Size / 7, (int)side, (int)side);
+                Rectangle r2 = new Rectangle(X + Size / 7, Y + Size / 7, (int)side, (int)side);
+                if (animate)
+                {
+                    using (Matrix m = new Matrix())
+                    {
+                        m.RotateAt(angle, new PointF(r.Left + (r.Width / 2),
+                                                  r.Top + (r.Height / 2)));
+
+                        g.Transform = m;
+                        g.DrawRectangle(p, r);
+                        g.ResetTransform();
+                        m.RotateAt(45+angle, new PointF(r2.Left + (r2.Width / 2),
+                                                r2.Top + (r2.Height / 2)));
+
+                        g.Transform = m;
+                        g.DrawRectangle(p, r);
+                        g.ResetTransform();
+                    }
+                }
+                else
+                {
+                    using (Matrix m = new Matrix())
+                    {
+                        m.RotateAt(angle, new PointF(r.Left + (r.Width / 2),
+                                                  r.Top + (r.Height / 2)));
+
+                        g.Transform = m;
+                        g.DrawRectangle(p, r);
+
+                        m.RotateAt(45, new PointF(r2.Left + (r2.Width / 2),
+                                                r2.Top + (r2.Height / 2)));
+
+                        g.Transform = m;
+                        g.DrawRectangle(p, r);
+                        g.ResetTransform();
+                    }
+                }
+                pictureBox.Refresh();
             }
         }
     }
